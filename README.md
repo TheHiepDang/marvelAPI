@@ -12,4 +12,10 @@ PUBLIC_KEY=your public key
 # API: Swagger
 
 /characters
++ Caching:
+    - key: indexing from offset -> offset + limit
+    - ttl: 1 day
 /characters/:id
++ Caching:
+    - key: id
+    - ttl: 1 day
