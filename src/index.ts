@@ -1,5 +1,5 @@
 import { PORT, app } from './app';
-
+import { logger } from '../winston'
 
 // Start server
-app.listen(PORT, () => console.log(`Server is listening on port ${PORT}!`));
+app.listen(PORT, () => logger.info(`Server is listening on port ${PORT}!`));

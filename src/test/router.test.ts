@@ -12,8 +12,8 @@ const mockRequest = {} as Request;
 const mockResponse = {} as Response;
 const nextFunc = jest.fn();
 
-describe('/characters api invocation', () => {
-    it('works', async () => {
+describe('characters api', () => {
+    it('should be invoked successfully', async () => {
         mockedAxios.get.mockResolvedValue({ data: charactersData, status: 200 });
         const result = await request(app)
             .get('/api/characters').send();
@@ -44,7 +44,7 @@ describe('/characters api invocation', () => {
         ]);
         expect(result.body).toHaveLength(20);
     });
-    it('fails', async () => {
+    it('should fail upon receiving empty data from Marvel API', async () => {
         mockedAxios.get.mockResolvedValue({ data: {}, status: 200 });
         const result = await request(app)
             .get('/api/characters').send();
@@ -52,7 +52,7 @@ describe('/characters api invocation', () => {
         expect(nextFunc).toBeCalledTimes(1);
         expect(result.status).toBe(500);
     });
-    it('fails 2', async () => {
+    it('should fail upon receiving unknown http status (Diff from 200 or 304)', async () => {
         mockedAxios.get.mockResolvedValue({ data: charactersData, status: 500 });
         const result = await request(app)
             .get('/api/characters').send();
@@ -63,7 +63,7 @@ describe('/characters api invocation', () => {
 });
 
 describe('/character api invocation', () => {
-    it('works', async () => {
+    it('should be invoked successfully', async () => {
         mockedAxios.get.mockResolvedValue({ data: characterData, status: 200 });
         const result = await request(app)
             .get('/api/characters/12345').send();
@@ -72,7 +72,7 @@ describe('/character api invocation', () => {
         expect(result.status).toBe(200);
         expect(result.body).toStrictEqual({ "description": "", "id": 1011334, "name": "3-D Man" });
     });
-    it('fails', async () => {
+    it('should fail upon receiving empty data from Marvel API', async () => {
         mockedAxios.get.mockResolvedValue({ data: {}, status: 200 });
         const result = await request(app)
             .get('/api/characters/12345').send();
@@ -80,7 +80,7 @@ describe('/character api invocation', () => {
         expect(nextFunc).toBeCalledTimes(1);
         expect(result.status).toBe(500);
     });
-    it('fails 2', async () => {
+    it('should fail upon receiving unknown http status (Diff from 200 or 304)', async () => {
         mockedAxios.get.mockResolvedValue({ data: characterData, status: 500 });
         const result = await request(app)
             .get('/api/characters/12345').send();

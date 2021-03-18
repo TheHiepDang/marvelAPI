@@ -1,0 +1,109 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Marvel API",
+    "description": "My small demo.",
+    "version": "0.1.9"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:7000/api",
+      "description": "The working one"
+    },
+    {
+      "url": "http://staging-sample.com/api",
+      "description": "When deployed to other env"
+    }
+  ],
+  "paths": {
+    "/characters": {
+      "get": {
+        "summary": "Returns a list of all characters. Limited by 20 by default.",
+        "description": "Returns a list of all characters. Limited by 20 by default.",
+        "responses": {
+          "200": {
+            "description": "A JSON array of character ids",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "Request failed with status code 404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters/{characterId}": {
+      "get": {
+        "summary": "Returns a character details that matches the Id.",
+        "description": "Returns a character details that matches the Id.",
+        "parameters": [
+          {
+            "name": "characterId",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the user to return.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON array of user names",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": 1011334
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "3-D Man"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "More than 2 dimensions?"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "Request failed with status code 404"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
